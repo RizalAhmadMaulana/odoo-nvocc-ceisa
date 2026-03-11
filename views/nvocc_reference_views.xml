@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nvocc_reference_tree" model="ir.ui.view">
+        <field name="name">nvocc.reference.tree</field>
+        <field name="model">nvocc.reference</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="uraian"/>
+                <field name="kode_master" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    </odoo>

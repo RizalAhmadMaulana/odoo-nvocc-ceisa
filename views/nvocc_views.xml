@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nvocc_house_tree" model="ir.ui.view">
+        <field name="name">nvocc.house.tree</field>
+        <field name="model">nvocc.house</field>
+        <field name="arch" type="xml">
+            <tree string="House BL List">
+                <field name="masterBlId"/>
+                <field name="nomorPos"/>
+                <field name="nomorSubPos"/>
+                <field name="nomorHostBl"/>
+                <field name="namaPenerima"/>
+                <field name="jumlahKemasan"/>
+                <field name="berat" string="Bruto"/>
+                <field name="netto"/>
+                <field name="parent_state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_nvocc_house_form" model="ir.ui.view">
+        <field name="name">nvocc.house.form</field>
+        <field name="model">nvocc.house</field>
+        <field name="arch" type="xml">
+            <form string="Detail House BL">
+                <sheet>
+                    <field name="parent_state" invisible="1"/>
+                    
+                    <group attrs="{'readonly': [('parent_state', '!=', 'draft')]}">
+                        <group string="Info Dokumen">
+                            <field name="masterBlId"/>
+                            <field name="nomorPos"/>
+                            <field name="nomorSubPos"/>
+                            <field name="nomorHostBl"/>
+                            <field name="tanggalHostBl"/>
+                            <field name="no_invoice" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                            <field name="tgl_invoice" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                            <field name="jenis_aju" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                            <field name="jenis_pibk" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                            <field name="no_sub_sub_pos" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                            <field name="kategori_barang" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                        </group>
+                        <group string="Fisik Barang">
+                            <field name="jumlahKemasan"/>
+                            <field name="jenisKemasan"/>
+                            <field name="berat"/>
+                            <field name="netto"/>
+                            <field name="dimensi"/>
+                            <field name="marking"/>
+                        </group>
+                    </group>
+                    <group attrs="{'readonly': [('parent_state', '!=', 'draft')]}">
+                        <group string="Pengirim (Shipper)">
+                            <field name="id_shipper"/>
+                            <field name="jenis_id_pengirim" options="{'no_create': True}"/>
+                            <field name="namaPengirim"/>
+                            <field name="telp_pengirim" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                            <field name="alamatPengirim"/>
+                            <field name="negaraPengirim" options="{'no_create': True}"/>
+                        </group>
+                        <group string="Penerima (Consignee)">
+                            <field name="namaPenerima"/>
+                            <field name="npwpPenerima"/>
+                            <field name="jenis_id_penerima" options="{'no_create': True}"/>
+                            <field name="telp_penerima" attrs="{'readonly': [('parent_state', '!=', 'draft')]}"/>
+                            <field name="alamatPenerima"/>
+                            <field name="negaraPenerima" options="{'no_create': True}"/>
+                            <separator string="Notify Party"/>
+                            <field name="namaNotify"/>
+                            <field name="alamatNotify"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Detail Barang (HS)">
+                            <field name="blHs" attrs="{'readonly': [('parent_state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="kodeHs"/>
+                                    <field name="uraianBarang"/>
+                                    <field name="cif"/>
+                                    <field name="freight"/>
+                                    <field name="fob"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_nvocc_house_list" model="ir.actions.act_window">
+        <field name="name">Data House BL</field>
+        <field name="res_model">nvocc.house</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="view_nvocc_master_tree" model="ir.ui.view">
+        <field name="name">nvocc.master.tree</field>
+        <field name="model">nvocc.master</field>
+        <field name="arch" type="xml">
+            <tree string="Manifest Data" decoration-info="state == 'draft'" decoration-muted="state == 'done'">
+                <field name="nomorAju"/>
+                <field name="name"/>
+                <field name="tanggalBl"/>
+                <field name="namaSaranaPengangkut"/>
+                <field name="kodePelabuhanBongkar"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_nvocc_master_form" model="ir.ui.view">
+        <field name="name">nvocc.master.form</field>
+        <field name="model">nvocc.master</field>
+        <field name="arch" type="xml">
+            <form string="Header Manifest NVOCC">
+                <header>
+                    <button name="action_confirm" string="Validate" type="object" class="oe_highlight" states="draft"/>
+                    
+                    <button name="action_generate_form_b" string="Create Form B" type="object" class="btn-warning" states="ready,sent,done"/>
+                    <button name="action_send_ceisa" string="Send to CEISA" type="object" class="btn-primary" states="ready"/>
+                    <button name="action_done" string="Mark as Done" type="object" class="btn-success" states="sent"/>
+                    <button name="action_draft" string="Set to Draft" type="object" states="ready,sent"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_house_bl" type="object" class="oe_stat_button" icon="fa-list-alt">
+                            <field name="jumlahPos" widget="statinfo" string="House BL"/>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <h2>
+                            <field name="nomorAju" attrs="{'invisible': [('nomorAju', '=', False)]}"/>
+                        </h2>
+                        <h4 attrs="{'invisible': [('json_file', '=', False)]}">
+                            File JSON : <field name="json_file" readonly="1" filename="json_filename"/>
+                            <field name="json_filename" invisible="1"/>
+                        </h4>
+                        <h4 attrs="{'invisible': [('xml_file', '=', False)]}">
+                            File XML : <field name="xml_file" readonly="1" filename="xml_filename"/>
+                            <field name="xml_filename" invisible="1"/>
+                        </h4>
+                        <h4 attrs="{'invisible': [('form_b_file', '=', False)]}">
+                            File Form B : <field name="form_b_file" readonly="1" filename="form_b_filename"/>
+                            <field name="form_b_filename" invisible="1"/>
+                        </h4>
+                    </div>
+
+                    <group attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <group string="Input Manual Respon BC 1.1">
+                            <field name="nomor_bc11"/>
+                            <field name="tanggal_bc11"/>
+                            <field name="nomor_pos_bc11"/>
+                            <div colspan="2" class="text-muted">
+                                <i>*Isi data di atas dari portal CEISA, lalu klik "Create Form B" untuk mencetak ulang Excel.</i>
+                            </div>
+                        </group>
+                    </group>
+                    
+                    <group attrs="{'readonly': [('state', '!=', 'draft')]}">
+                        <group string="Header Pengajuan">
+                            <field name="name"/>
+                            <field name="kodeKantor" options="{'no_create': True}"/>
+                            <field name="jenisManifes"/>
+                            <field name="idPerusahaan"/>
+                            <field name="namaPerusahaan"/>
+                            <field name="alamatPerusahaan"/>
+                            <field name="tanggalBl"/>
+                        </group>
+                        
+                        <group string="Sarana Angkut">
+                            <field name="nomorVoyage"/>
+                            <field name="modePengangkut"/>
+                            <field name="namaSaranaPengangkut"/>
+                            <field name="imoNumber"/>
+                            <field name="callSign"/>
+                            <field name="kodeNegara" options="{'no_create': True}"/>
+                            <field name="tanggalBerangkat"/>
+                            <field name="tanggalTiba"/>
+                        </group>
+                    </group>
+
+                    <group attrs="{'readonly': [('state', '!=', 'draft')]}">
+                        <group string="Pelabuhan">
+                            <field name="kodePelabuhanAsal" options="{'no_create': True}"/>
+                            <field name="kodePelabuhanBongkar" options="{'no_create': True}"/>
+                            <field name="kodePelabuhanTransit" options="{'no_create': True}"/>
+                        </group>
+                        <group string="Data Container">
+                            <field name="nomorContainer"/>
+                            <field name="jenisContainer" options="{'no_create': True}"/>
+                            <field name="ukuranContainer" options="{'no_create': True}"/>
+                            <field name="nomorSegel"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="House BL (Quick View)">
+                            <field name="dataBls" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree>
+                                    <field name="nomorPos"/>
+                                    <field name="nomorSubPos"/>
+                                    <field name="nomorHostBl"/>
+                                    <field name="tanggalHostBl"/> 
+                                    <field name="namaPenerima"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_nvocc_master" model="ir.actions.act_window">
+        <field name="name">Data Manifest</field>
+        <field name="res_model">nvocc.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

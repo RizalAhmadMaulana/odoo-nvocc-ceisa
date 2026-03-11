@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_nvocc_master,access.nvocc.master,model_nvocc_master,base.group_user,1,1,1,1
+access_nvocc_house,access.nvocc.house,model_nvocc_house,base.group_user,1,1,1,1
+access_nvocc_goods,access.nvocc.goods,model_nvocc_goods,base.group_user,1,1,1,1
+access_nvocc_reference,access.nvocc.reference,model_nvocc_reference,base.group_user,1,1,1,1

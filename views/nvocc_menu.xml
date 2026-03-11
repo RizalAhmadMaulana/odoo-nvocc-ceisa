@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="nvocc_root_menu" name="NVOCC" sequence="10" web_icon="nvocc,static/description/icon.png"/>
+
+    <menuitem id="nvocc_master_data_menu" 
+              name="Master Data" 
+              parent="nvocc_root_menu" 
+              action="action_nvocc_master" 
+              sequence="1"/>
+    
+    <menuitem id="menu_nvocc_data_house" 
+              name="Data House BL" 
+              parent="nvocc_root_menu" 
+              action="action_nvocc_house_list" 
+              sequence="2"/>
+
+    <menuitem id="menu_nvocc_import_form_a" 
+              name="Import Form A" 
+              parent="nvocc_root_menu" 
+              action="action_nvocc_import_form_a" 
+              sequence="10"/>
+
+    <menuitem id="nvocc_config_menu" name="Configuration" parent="nvocc_root_menu" sequence="99"/>
+
+    <menuitem id="menu_nvocc_reference_root" name="Referensi" parent="nvocc_config_menu" sequence="1"/>
+
+    <record id="action_ref_negara" model="ir.actions.act_window">
+        <field name="name">Kode Negara</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',1)]</field>
+        <field name="context">{'default_kode_master': 1}</field>
+    </record>
+    <menuitem id="menu_ref_negara" name="Kode Negara" parent="menu_nvocc_reference_root" action="action_ref_negara" sequence="1"/>
+
+    <record id="action_ref_pelabuhan" model="ir.actions.act_window">
+        <field name="name">Kode Pelabuhan</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',2)]</field>
+        <field name="context">{'default_kode_master': 2}</field>
+    </record>
+    <menuitem id="menu_ref_pelabuhan" name="Kode Pelabuhan" parent="menu_nvocc_reference_root" action="action_ref_pelabuhan" sequence="2"/>
+
+    <record id="action_ref_kemasan" model="ir.actions.act_window">
+        <field name="name">Jenis Kemasan</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',3)]</field>
+        <field name="context">{'default_kode_master': 3}</field>
+    </record>
+    <menuitem id="menu_ref_kemasan" name="Jenis Kemasan" parent="menu_nvocc_reference_root" action="action_ref_kemasan" sequence="3"/>
+
+    <record id="action_ref_jns_cont" model="ir.actions.act_window">
+        <field name="name">Jenis Container</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',4)]</field>
+        <field name="context">{'default_kode_master': 4}</field>
+    </record>
+    <menuitem id="menu_ref_jns_cont" name="Jenis Container" parent="menu_nvocc_reference_root" action="action_ref_jns_cont" sequence="4"/>
+
+    <record id="action_ref_agen" model="ir.actions.act_window">
+        <field name="name">Kode Agen</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',5)]</field>
+        <field name="context">{'default_kode_master': 5}</field>
+    </record>
+    <menuitem id="menu_ref_agen" name="Kode Agen" parent="menu_nvocc_reference_root" action="action_ref_agen" sequence="5"/>
+
+    <record id="action_ref_satuan" model="ir.actions.act_window">
+        <field name="name">Kode Satuan Harga</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',6)]</field>
+        <field name="context">{'default_kode_master': 6}</field>
+    </record>
+    <menuitem id="menu_ref_satuan" name="Kode Satuan Harga" parent="menu_nvocc_reference_root" action="action_ref_satuan" sequence="6"/>
+
+    <record id="action_ref_kantor" model="ir.actions.act_window">
+        <field name="name">Kode Kantor</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',7)]</field>
+        <field name="context">{'default_kode_master': 7}</field>
+    </record>
+    <menuitem id="menu_ref_kantor" name="Kode Kantor" parent="menu_nvocc_reference_root" action="action_ref_kantor" sequence="7"/>
+
+    <record id="action_ref_identitas" model="ir.actions.act_window">
+        <field name="name">Jenis Identitas</field>
+        <field name="res_model">nvocc.reference</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('kode_master','=',8)]</field>
+        <field name="context">{'default_kode_master': 8}</field>
+    </record>
+    <menuitem id="menu_ref_identitas" name="Jenis Identitas" parent="menu_nvocc_reference_root" action="action_ref_identitas" sequence="8"/>
+</odoo>

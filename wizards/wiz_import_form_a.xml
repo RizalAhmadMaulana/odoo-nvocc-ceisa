@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nvocc_import_form_a" model="ir.ui.view">
+        <field name="name">nvocc.import.form.a.form</field>
+        <field name="model">nvocc.import.form.a</field>
+        <field name="arch" type="xml">
+            <form string="Import Form A">
+                <sheet>
+                    <group>
+                        <field name="file_data" filename="file_name" widget="binary" height="64"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_import" string="Import Data" type="object" class="btn-primary"/>
+                        <button name="action_download_template" string="Download Contoh Form A" type="object" class="btn-warning" icon="fa-download"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_nvocc_import_form_a" model="ir.actions.act_window">
+        <field name="name">Import Form A</field>
+        <field name="res_model">nvocc.import.form.a</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
